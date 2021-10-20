@@ -12,7 +12,7 @@ namespace Infrastructure.Services
         public List<MovieCardResponseModel> GetTop30RevenueMovies()
         {
             //method should call movie repo and get data from movie table
-
+            
             var movieCards = new List<MovieCardResponseModel> 
             { 
                 new MovieCardResponseModel {Id = 1, Title="Inception", PosterUrl = "https://image.tmdb.org/t/p/w342//9gk7adHYeDvHkCSEqAvQNLV5Uge.jpg" },
