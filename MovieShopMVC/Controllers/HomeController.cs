@@ -8,18 +8,17 @@ using System.Linq;
 using System.Threading.Tasks;
 using ApplicationCore.Models;
 using Infrastructure.Services;
+using ApplicationCore.ServiceInterfaces;
 
 namespace MovieShopMVC.Controllers
 {
     public class HomeController : Controller
     {
-        
-       
-        public HomeController(ILogger<HomeController> logger)
+        private IMovieService _movieService;
+        public HomeController(IMovieService movieService)
         {
-            
+            _movieService = new MovieService();
         }
-
         //Routing
         //http://localhost/home/index
         //by default its get
@@ -27,8 +26,8 @@ namespace MovieShopMVC.Controllers
         public IActionResult Index()
         {
             // call movie service class to get list of movie card models
-            MovieService service = new MovieService();
-            var movieCards = service.GetTop30RevenueMovies();
+            
+            var movieCards = _movieService.GetTop30RevenueMovies();
             // passing data from controller to view,
             // 1. stongly typed models
             // 2. ViewBag and ViewData
