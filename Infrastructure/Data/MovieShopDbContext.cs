@@ -25,9 +25,77 @@ namespace Infrastructure.Data
             modelBuilder.Entity<Cast>(ConfigureCast);
             modelBuilder.Entity<Role>(ConfigureRole);
             modelBuilder.Entity<User>(ConfigureUser);
+            modelBuilder.Entity<Trailer>(ConfigureTrailer);
+            modelBuilder.Entity<MovieGenre>(ConfigureMovieGenre);
+            modelBuilder.Entity<MovieCast>(ConfigureMovieCast);
+            modelBuilder.Entity<Review>(ConfigureReview);
+            modelBuilder.Entity<Favorite>(ConfigureFavorite);
+            modelBuilder.Entity<UserRole>(ConfigureUserRole);
+            modelBuilder.Entity<Purchase>(ConfigurePurchase);
         }
 
-        private void ConfigureUser(EntityTypeBuilder<User> builder)
+        private void ConfigurePurchase(EntityTypeBuilder<Purchase> builder)
+        {
+            builder.ToTable("Purchase");
+            builder.HasKey(p => p.Id);
+            builder.Property(p => p.PurchaseNumber).HasColumnType("uniqueidentifier");
+            builder.Property(p => p.TotalPrice).HasColumnType("decimal(18,2)").HasDefaultValue(9.9m);
+            builder.Property(p => p.PurchaseDateTime).HasDefaultValueSql("getdate()");
+            builder.HasOne(m => m.Movie).WithMany(p => p.Purchases).HasForeignKey(m => m.MovieId);
+            builder.HasOne(u => u.User).WithMany(p => p.Purchases).HasForeignKey(u => u.UserId);
+        }
+
+        private void ConfigureUserRole(EntityTypeBuilder<UserRole> builder)
+        {
+            builder.ToTable("UserRole");
+            builder.HasKey(ur=>new {ur.UserId ,ur.RoleId });
+            builder.HasOne(u => u.User).WithMany(r => r.Roles).HasForeignKey(u => u.UserId);
+            builder.HasOne(r => r.Role).WithMany(u => u.Users).HasForeignKey(r => r.RoleId);
+        }
+
+        private void ConfigureFavorite(EntityTypeBuilder<Favorite> builder)
+        {
+            builder.ToTable("Favorite");
+            builder.HasKey(f => f.Id);
+            builder.HasOne(u => u.User).WithMany(f => f.Favorites).HasForeignKey(u=>u.UserId);
+            builder.HasOne(m => m.Movie).WithMany(f => f.Favorites).HasForeignKey(m => m.MovieId);
+        }
+
+        private void ConfigureReview(EntityTypeBuilder<Review> builder)
+        {
+            builder.ToTable("Review");
+            builder.HasKey(r => new { r.MovieId, r.UserId });
+            builder.HasOne(m=>m.Movie).WithMany(r=>r.Reviews).HasForeignKey(m=>m.MovieId);
+            builder.HasOne(u => u.User).WithMany(r => r.Reviews).HasForeignKey(u => u.UserId);
+            builder.Property(r=>r.Rating).HasColumnType("decimal(3, 2)").HasDefaultValue(9.9m);
+            
+        }
+
+        private void ConfigureMovieCast(EntityTypeBuilder<MovieCast> builder)
+        {
+            builder.ToTable("MovieCast");
+            builder.HasKey(mc => mc.Character);
+            builder.Property(mc => mc.Character).HasMaxLength(450);
+            builder.HasOne(m => m.Movie).WithMany(m => m.Casts).HasForeignKey(m => m.MovieId);
+            builder.HasOne(c => c.Cast).WithMany(c => c.Movies).HasForeignKey(c => c.CastId);
+        }
+
+        private void ConfigureMovieGenre(EntityTypeBuilder<MovieGenre> builder)
+        {
+            builder.ToTable("MovieGenre");
+            builder.HasKey(mg => new { mg.MovieId, mg.GenreId });
+            builder.HasOne(m => m.Movie).WithMany(m => m.Genres).HasForeignKey(m => m.MovieId);
+            builder.HasOne(g => g.Genre).WithMany(g => g.Movies).HasForeignKey(g => g.GenreId);
+        }
+        private void ConfigureTrailer(EntityTypeBuilder<Trailer> builder)
+        {
+            builder.ToTable("Trailer");
+            builder.HasKey(t => t.Id);
+            builder.Property(t => t.TrailerUrl).HasMaxLength(2084);
+            builder.Property(t => t.Name).HasMaxLength(2084);
+        }
+
+            private void ConfigureUser(EntityTypeBuilder<User> builder)
         {
             builder.ToTable("User");
             builder.HasKey(u => u.Id);
@@ -86,6 +154,13 @@ namespace Infrastructure.Data
         public DbSet<Cast> Casts { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<User> Users { get; set; }
+        public DbSet<Trailer> Trailers { get; set; }
+        public DbSet<MovieGenre> MovieGenres { get; set; }
+        public DbSet<MovieCast> MovieCasts { get; set; }
+        public DbSet<Review> Reviews { get; set; }
+        public DbSet<Favorite> Favorites { get; set; }
+        public DbSet<UserRole> UserRoles { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
 
     }
 }

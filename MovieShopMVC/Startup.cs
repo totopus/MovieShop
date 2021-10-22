@@ -1,5 +1,7 @@
+using ApplicationCore.RepositoryInterfaces;
 using ApplicationCore.ServiceInterfaces;
 using Infrastructure.Data;
+using Infrastructure.Repositories;
 using Infrastructure.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -29,7 +31,8 @@ namespace MovieShopMVC
         {
             //IOC
             services.AddControllersWithViews();
-            services.AddScoped<IMovieService, MovieTestService>();
+            services.AddScoped<IMovieService, MovieService>();
+            services.AddScoped<IMovieRepository, MovieRepository>();
             //Inject connection string from appsetting.json to movieshopdbcontext
 
             services.AddDbContext<MovieShopDbContext>(

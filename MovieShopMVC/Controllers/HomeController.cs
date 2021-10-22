@@ -15,9 +15,12 @@ namespace MovieShopMVC.Controllers
     public class HomeController : Controller
     {
         private IMovieService _movieService;
+        private readonly int x;
+
         public HomeController(IMovieService movieService)
         {
-            _movieService = new MovieService();
+            x = 40;
+            _movieService = movieService;
         }
         //Routing
         //http://localhost/home/index
