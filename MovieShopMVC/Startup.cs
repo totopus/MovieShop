@@ -33,6 +33,9 @@ namespace MovieShopMVC
             services.AddControllersWithViews();
             services.AddScoped<IMovieService, MovieService>();
             services.AddScoped<IMovieRepository, MovieRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
+
             //Inject connection string from appsetting.json to movieshopdbcontext
 
             services.AddDbContext<MovieShopDbContext>(
@@ -62,6 +65,7 @@ namespace MovieShopMVC
 
             app.UseEndpoints(endpoints =>
             {
+                
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");

@@ -1,21 +1,19 @@
-﻿
-@model List<ApplicationCore.Models.MovieCardResponseModel>
-
+﻿@model List<ApplicationCore.Models.MovieCardResponseModel>
 @{
     ViewData["Title"] = "Home Page";
 }
-<h2>@ViewBag.PageTitle </h2>>
-<h3>@ViewData["xyz"]</h3>>
-<div class="text-center">
 
-    @foreach (var movie in Model)
-    {
+<div class="rounded">
+    <div class="container-fluid">
+        <div class="row">
+            @foreach (var movieCard in Model)
+            {
+                <div class="col-xl-2 col-sm-4 col-lg-3 col-6">
 
+                    <partial name="_MovieCard" model="movieCard" />
 
-
-        <div>
-            @movie.Title
-            <img src="@movie.PosterUrl" />
+                </div>
+            }
         </div>
-    }
+    </div>
 </div>

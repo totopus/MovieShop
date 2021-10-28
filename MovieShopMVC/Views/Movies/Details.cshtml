@@ -1,0 +1,161 @@
+﻿@model ApplicationCore.Models.MovieDetailsResponseModel
+
+<div class="bg-image" style="background: linear-gradient(rgb(0 0 10/0.75),rgba(0 0 10/0.75)),url( @Model.BackdropUrl ) ">
+   
+    <div class="row">
+        <div class="col-md offset-2">
+            <!--Movie Poster-->
+            <div>
+                
+                <img src="@Model.PosterUrl" class="movie-top img-fluid"/>
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!--Movie Details-->
+            <h3 class="text-white mt-3">
+                @Model.Title
+
+            </h3>
+
+
+            <div >
+                <small class="text-muted">@Model.Tagline</small>
+            </div>
+
+
+            <div class="row">
+                <div class="mt-2 col-4">
+                    <small class="text-muted font-weight-bold">@Model.RunTime m | @Model.ReleaseDate.Value.Date.Year</small>
+                </div>
+
+                <div class="col-8 pt-1 ">
+                    @foreach (var genre in @Model.Genres)
+                    {
+                        <span class="badge badge-pill badge-dark">@genre.Name</span>
+                    }
+                </div>
+            </div>
+
+            <div class="mt-2">
+                <span class="badge badge-success">
+                    @Model.Rating?.ToString("0.0")
+                </span>
+            </div>
+
+
+            <div class="text-light mt-3 mb-3 ">@Model.Overview</div>
+        </div>
+
+
+        <div class="col-md">
+            <ul class="list-group">
+                <li class="list-group mt-5  ml-3 mr-3"><button type="button" class="btn btn-outline-light"><i class="far fa-edit"></i> REVIEW</button></li>
+                <li class="list-group mt-1 m-3"><button type="button" class="btn btn-light">BUY $@Model.Price</button></li>
+            </ul>
+
+        
+        </div>
+    </div>
+</div>
+    <div class="row mt-3 ml-3">
+        <div class="col-md-4">
+            <h5>Movie Facts</h5>
+            <table class=" table-thick">
+                <tr>
+                    <td>
+                        <i class="fa fa-calendar-alt mr-2"></i>
+                        Release Date
+
+                        <span class="badge badge-pill badge-dark">
+                            @Model.ReleaseDate.Value.ToString("MMM dd, yyyy")
+                        </span>
+                    </td>
+                </tr>
+
+                    <tr>
+                    <td>
+                        <i class="fas fa-hourglass-half mr-2"></i>
+                        Run Time
+
+                        <span class="badge badge-pill badge-dark">
+                            @Model.RunTime m
+                        </span>
+                    </td>
+
+                    </tr>
+                <tr>
+                    <td>
+                        <i class="far fa-money-bill-alt"></i>
+                        Box Office
+                        <span class="badge badge-pill badge-dark">
+                            @Model.Revenue?.ToString("C")
+                        </span>
+                    </td>
+                    </tr>
+
+                <tr>
+                    <td>
+                        <i class="fas fa-dollar-sign mr-2"></i>
+                        Budget
+                        <span class="badge badge-pill badge-dark">
+                            
+                            @Model.Budget?.ToString("C0")
+                         
+                        </span>
+                    </td>
+                </tr>
+            </table>
+                
+
+        <h5 class="pt-3">Trailers</h5>
+        <div>
+         
+
+                <table class="table-thick">
+                    <tbody>
+                        @foreach (var trailer in @Model.Trailers)
+                        {
+
+                            <tr>
+                                <td>
+                                    <i class="fab fa-youtube"></i>
+                                    <span>@trailer.Name</span>
+                                </td>
+                            </tr>}
+
+                        
+                        </tbody>
+                   </table>
+           
+                   
+        </div>
+        </div>
+
+        <div class="col-md-6 offset-1">
+            <h5>Cast</h5>
+            <table class="table">
+                <tbody>
+                    @foreach (var cast in Model.Casts)
+                    {
+
+                        <tr>
+                            <td>
+
+                                <div class="movie-profile">
+                                    <a asp-controller="Home" asp-action="Index" >
+                                    <img src="@cast.ProfilePath" class="rounded-circle img-fluid" alt="Alternate Text" />
+                                        </a>
+                                </div>
+                            </td>
+                            <td>@cast.Name</td>
+                            <td>@cast.Character</td>
+
+                        </tr>
+
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+

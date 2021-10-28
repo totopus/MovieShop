@@ -26,11 +26,11 @@ namespace MovieShopMVC.Controllers
         //http://localhost/home/index
         //by default its get
         [HttpGet]
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
             // call movie service class to get list of movie card models
             
-            var movieCards = _movieService.GetTop30RevenueMovies();
+            var movieCards = await _movieService.GetTop30RevenueMovies();
             // passing data from controller to view,
             // 1. stongly typed models
             // 2. ViewBag and ViewData
