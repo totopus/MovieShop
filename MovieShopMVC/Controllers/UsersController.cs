@@ -42,9 +42,11 @@ namespace MovieShopMVC.Controllers
         [HttpGet]
         //Filters in Asp.Net
         //[Authorize]
-        public async Task<IActionResult> Purchases(int id)
+        public async Task<IActionResult> Purchases()
         {
-            var moviePurchased = await _userService.GetPurchasedMovieByUserId(id);
+            int userId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var moviePurchased = await _userService.GetPurchasedMovieByUserId(userId);
+            
             return View(moviePurchased);
             // get all the movies purchased by user => List<MovieCard> 
             //var userIdentity = this.User.Identity;
@@ -55,7 +57,7 @@ namespace MovieShopMVC.Controllers
             //RedirectToAction("Login", "Account");
 
             //get all movies purchased by user =>list<moviecard>
-            //int userId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            
             //call userservice that will give list of moviecard models that this user purchased
             //purchase, dbContext.Purchase.where(u=>u.userid==id);
           
