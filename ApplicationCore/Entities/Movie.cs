@@ -31,7 +31,7 @@ namespace ApplicationCore.Entities
         //Average rating should come from Review Table
         public decimal? Rating { get; set; }
 
-        public Purchase Purchase { get; set; }
+        //public Purchase Purchase { get; set; }
         public ICollection<Trailer> Trailers { get; set; }
         public ICollection<MovieGenre> Genres { get; set; }
         public ICollection<MovieCast> Casts { get; set; }

@@ -17,6 +17,6 @@ namespace ApplicationCore.Entities
         public User User { get; set; }
         public Movie Movie { get; set; }
 
-        public ICollection<Movie> Movies { get; set; }
+       
     }
 }

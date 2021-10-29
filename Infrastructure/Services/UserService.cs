@@ -116,11 +116,13 @@ namespace Infrastructure.Services
 
             foreach (var movie in purchase)
             {
-               
-                    movieCards.Add(new MovieCardResponseModel
-                    {
-                        Id = movie.MovieId
-                    });
+
+                movieCards.Add(new MovieCardResponseModel
+                {
+                    Id = movie.MovieId,
+                    Title = movie.Movie.Title,
+                    PosterUrl = movie.Movie.PosterUrl
+                }) ;
                
                 
             }
