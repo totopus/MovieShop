@@ -1,12 +1,13 @@
-﻿using ApplicationCore.Entities;
-using ApplicationCore.RepositoryInterfaces;
-using Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using ApplicationCore;
+using ApplicationCore.Entities;
+using ApplicationCore.RepositoryInterfaces;
+using Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 public class UserRepository : IUserRepository
 {
@@ -23,6 +24,7 @@ public class UserRepository : IUserRepository
         await _dbContext.SaveChangesAsync();
         return user;
     }
+
 
     public async Task<User> GetUserByEmail(string email)
     {

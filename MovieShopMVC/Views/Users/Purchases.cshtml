@@ -1,0 +1,10 @@
+﻿@model List<ApplicationCore.Models.MovieCardResponseModel>
+
+    <div>
+        @foreach (var item in Model)
+        {
+            <div>@item.Id</div>
+            <div>@item.Title</div>
+        }
+
+    </div>

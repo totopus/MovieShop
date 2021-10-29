@@ -10,16 +10,21 @@ using Microsoft.AspNetCore.Cryptography.KeyDerivation;
 using System.Security.Cryptography;
 using ApplicationCore.Entities;
 
+
 namespace Infrastructure.Services
 {
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IPurchaseRepository _purchaseRepository;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository,IPurchaseRepository purchaseRepository)
         {
             _userRepository = userRepository;
+            _purchaseRepository = purchaseRepository;
         }
+
+        
 
         public async Task<int> RegisterUser(UserRegisterRequestModel requestModel)
         {
@@ -97,6 +102,29 @@ namespace Infrastructure.Services
                 return userLoginResponseModel;
             }
             return null;
+        }
+
+        public async Task<List<MovieCardResponseModel>> GetPurchasedMovieByUserId(int id)
+        {
+            var purchase = await _purchaseRepository.GetPurchasedByUserId(id);
+            if (purchase == null)
+            {
+                throw new Exception($"No User Found for this {id}");
+            }
+
+            var movieCards = new List<MovieCardResponseModel>();
+
+            foreach (var movie in purchase)
+            {
+               
+                    movieCards.Add(new MovieCardResponseModel
+                    {
+                        Id = movie.MovieId
+                    });
+               
+                
+            }
+            return movieCards;
         }
     }
 }

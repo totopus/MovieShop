@@ -7,10 +7,8 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.RepositoryInterfaces
 {
-    public interface IUserRepository
+    public interface IPurchaseRepository
     {
-        Task<User> GetUserByEmail(string email);
-        Task<User> AddUser(User user);
-        
+        Task<IEnumerable<Purchase>> GetPurchasedByUserId(int id);
     }
 }

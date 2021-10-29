@@ -32,10 +32,13 @@
                 <div class="col-8 pt-1 ">
                     @foreach (var genre in @Model.Genres)
                     {
+                    <a asp-controller="Home" asp-action="Index">
                         <span class="badge badge-pill badge-dark">@genre.Name</span>
+                    </a>
                     }
                 </div>
             </div>
+
 
             <div class="mt-2">
                 <span class="badge badge-success">
@@ -127,10 +130,11 @@
                         
                         </tbody>
                    </table>
-           
                    
         </div>
         </div>
+
+
 
         <div class="col-md-6 offset-1">
             <h5>Cast</h5>
@@ -143,9 +147,9 @@
                             <td>
 
                                 <div class="movie-profile">
-                                    <a asp-controller="Home" asp-action="Index" >
-                                    <img src="@cast.ProfilePath" class="rounded-circle img-fluid" alt="Alternate Text" />
-                                        </a>
+                                    <a asp-controller="Casts" asp-action="Index" asp-route-id="@cast.Id">
+                                        <img src="@cast.ProfilePath" class="rounded-circle img-fluid" alt="Alternate Text" />
+                                    </a>
                                 </div>
                             </td>
                             <td>@cast.Name</td>

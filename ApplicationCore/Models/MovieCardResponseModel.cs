@@ -12,5 +12,6 @@ namespace ApplicationCore.Models
         public string Title { get; set; }
         public string PosterUrl { get; set; }
 
+
     }
 }
