@@ -11,14 +11,14 @@
 #### This is A Sample Page of A Movie that The User Bought, Favorited, and Reviewed.
 #### The Buy, Favorite, Review Buttons Change Based On If The User Has Purchased the Movie Or Not.
 ![Alt text](/4.PNG)
-#### This is A Sample Page of A Movie that The User Bought, Favorited, and Reviewed.
-#### The Buy, Favorite, Review Buttons Change Based On If The User Has Purchased the Movie Or Not.
+#### This is A Sample Of Leave A Review Page. If The User Left A Review Before, The Review Button Will Change To Edit Review.
 ![Alt text](/5.PNG)
-
+#### This is A Sample Page Of All Favorited Movies.
 ![Alt text](/6.PNG)
-
+#### This is A Sample Page Of All Reviews The User Left.
+#### You Can Delete The Review Using The Delete Button On The Right
 ![Alt text](/7.PNG)
-
+#### This Is A Sample Page of Movie Details When The User Has Not Purchased, Reviewed, Or Favorited A Movie.
 ![Alt text](/8.PNG)
 
 
