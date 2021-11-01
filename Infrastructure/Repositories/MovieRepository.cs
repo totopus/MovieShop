@@ -43,7 +43,7 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Review>> GetMovieReviews(int id, int pageSize = 30, int page = 1)
         {
-            var reviews = await _dbContext.Reviews.Where(r => r.MovieId == id).ToListAsync();
+            var reviews = await _dbContext.Reviews.Include(u=>u.User).Where(r => r.MovieId == id).ToListAsync();
             return reviews;
         }
 

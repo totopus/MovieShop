@@ -138,6 +138,7 @@ namespace Infrastructure.Services
                         Id = movie.MovieId,
                         Title = movie.Movie.Title,
                         PosterUrl = movie.Movie.PosterUrl
+
                     });
             }
             return result;
@@ -154,7 +155,9 @@ namespace Infrastructure.Services
                 {
                     UserId = review.UserId,
                     ReviewText = review.ReviewText,
-                    Rating = review.Rating
+                    Rating = review.Rating,
+                    FirstName = review.User.FirstName,
+                    LastName = review.User.LastName
                 });
             }
             return reviewsList;
