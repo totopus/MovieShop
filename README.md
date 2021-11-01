@@ -3,6 +3,8 @@
 #### You can View Purchased Movie, Favorited Movies, and Reviews You Made Once Logged In.
 ![Alt text](/1.PNG)
 
+#### This is Purchased Movies Page.
+#### You can See All Purchased Movies. You can Click On Purchase Details to See Detailed Purchase Informations.
 ![Alt text](/2.PNG)
 
 ![Alt text](/3.PNG)
