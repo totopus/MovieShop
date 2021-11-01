@@ -1,2 +1,2 @@
 # MovieShop
-![Alt text](/1.jpg?raw=true "Optional Title")
+![Alt text](/1.png?raw=true "Optional Title")
