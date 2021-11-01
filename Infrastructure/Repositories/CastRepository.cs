@@ -11,18 +11,10 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class CastRepository : ICastRepository
+    public class CastRepository : EfRepository<Cast>, ICastRepository
     {
-        public MovieShopDbContext _dbContext;
-        public CastRepository(MovieShopDbContext dbContext)
+        public CastRepository(MovieShopDbContext dbContext) : base(dbContext)
         {
-            _dbContext = dbContext;
-        }
-
-        public async Task<Cast> GetCastById(int id)
-        {
-            var cast = await _dbContext.Casts.Include(m=>m.Movies).FirstOrDefaultAsync(c => c.Id==id);
-            return cast;
         }
     }
 }

@@ -20,7 +20,7 @@ namespace Infrastructure.Services
      
         public async Task<CastResponseModel> GetCastDetails(int id)
         {
-            var cast = await _castRepository.GetCastById(id);
+            var cast = await _castRepository.GetById(id);
             if (cast == null)
             {
                 throw new Exception($"No Cast Found for this {id}");
@@ -29,6 +29,8 @@ namespace Infrastructure.Services
             {
                 Id = cast.Id,
                 Name = cast.Name,
+                Gender = cast.Gender,
+                TmdbUrl = cast.TmdbUrl,
                 ProfilePath = cast.ProfilePath
             };
             return castDetails;

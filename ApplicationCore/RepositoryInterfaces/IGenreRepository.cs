@@ -7,8 +7,8 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.RepositoryInterfaces
 {
-    public interface ICastRepository:IAsyncRepository<Cast>
+    public interface IGenreRepository:IAsyncRepository<Genre>
     {
-     
+        
     }
 }

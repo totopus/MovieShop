@@ -24,6 +24,27 @@ namespace Infrastructure.Services
             _reviewRepository = reviewRepository;
         }
 
+        //==================================== Get All Movies =====================================//
+        public async Task<List<MovieCardResponseModel>> GetAllMovies()
+        {
+            var movies = await _movieRepository.GetAll();
+            var movieList = new List<MovieCardResponseModel>();
+
+            foreach (var movie in movies)
+            {
+                movieList.Add(new MovieCardResponseModel
+                {
+                    Id = movie.Id,
+                    Title = movie.Title,
+                    PosterUrl = movie.PosterUrl
+             
+                });
+            }
+            return movieList;
+           
+        }
+
+        //========================================= Get Average Rating By ID =====================================//
         public async Task<double> GetAverageRatingById(int id)
         {
             var averageRating = await _movieRepository.GetAverageRatingById(id);
@@ -32,7 +53,7 @@ namespace Infrastructure.Services
 
 
         //============================= Get Movie Details =================================//
-        public async Task<MovieDetailsResponseModel> GetMovieDetails(int movieId, int? userId)
+        public async Task<MovieDetailsResponseModel> GetMovieDetails(int movieId, int? userId=null)
         {
 
             var movie = await _movieRepository.GetMovieById(movieId);
@@ -102,6 +123,58 @@ namespace Infrastructure.Services
             }
             return movieDetails;
             
+        }
+
+        //============================== Get Movies By GenreId ================================//
+        public async Task<List<MovieCardResponseModel>> GetMoviesByGenreId(int id)
+        {
+            var movies = await _movieRepository.GetMoviesByGenreId(id);
+            var result = new List<MovieCardResponseModel>();
+            foreach (var movie in movies)
+            {
+                result.Add(
+                    new MovieCardResponseModel()
+                    {
+                        Id = movie.MovieId,
+                        Title = movie.Movie.Title,
+                        PosterUrl = movie.Movie.PosterUrl
+                    });
+            }
+            return result;
+        }
+
+        //================================ Get Reviews By MovieId ==============================//
+        public async Task<List<UserReviewResponseModel>> GetReviewsByMovieId(int id)
+        {
+            var reviews = await _movieRepository.GetMovieReviews(id);
+            var reviewsList = new List<UserReviewResponseModel>();
+            foreach (var review in reviews)
+            {
+                reviewsList.Add(new UserReviewResponseModel
+                {
+                    UserId = review.UserId,
+                    ReviewText = review.ReviewText,
+                    Rating = review.Rating
+                });
+            }
+            return reviewsList;
+        }
+
+        //==================================== Get Top 25 Rated Movies ================================//
+        public async Task<List<MovieCardResponseModel>> GetTop25RatedMovies()
+        {
+            var movies = await _movieRepository.GetTop25RatedMovies();
+            var movieCards = new List<MovieCardResponseModel>();
+            foreach (var movie in movies)
+            {
+                movieCards.Add(new MovieCardResponseModel
+                {
+                    Id = movie.Id,
+                    PosterUrl = movie.PosterUrl,
+                    Title = movie.Title
+                });
+            }
+            return movieCards;
         }
 
 

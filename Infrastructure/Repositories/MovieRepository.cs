@@ -39,6 +39,30 @@ namespace Infrastructure.Repositories
             // Single (should be only 1 0, more than 1 exception) vs SingleOrDefault (0,1, more than 1 exception)
         }
 
+        //=================================== Get Movie Reviews ===========================================//
+
+        public async Task<IEnumerable<Review>> GetMovieReviews(int id, int pageSize = 30, int page = 1)
+        {
+            var reviews = await _dbContext.Reviews.Where(r => r.MovieId == id).ToListAsync();
+            return reviews;
+        }
+
+        //=================================== Get Movies By GenreId ===========================================//
+
+        public async Task<IEnumerable<MovieGenre>> GetMoviesByGenreId(int id)
+        {
+            var movieGenres = await _dbContext.Genres.Include(m => m.Movies).ThenInclude(m=>m.Movie).Where(g => g.Id == id).SelectMany(m => m.Movies).ToListAsync();
+            return movieGenres;
+        }
+        //=================================== Get Top 25 Rated Movies ===========================================//
+
+        public async Task<IEnumerable<Movie>> GetTop25RatedMovies()
+        {
+            var movies = await _dbContext.Movies.Include(r => r.Reviews)
+                        .OrderByDescending(r => r.Reviews.Average(r => r.Rating)).Take(25).ToListAsync();
+            return movies;
+        }
+
         //=================================== Get Top 30 Revenue Movies ===========================================//
         public async Task<IEnumerable<Movie>> GetTop30RevenueMovies()
         {
@@ -50,6 +74,8 @@ namespace Infrastructure.Repositories
             var movies = await _dbContext.Movies.OrderByDescending(m => m.Revenue).Take(30).ToListAsync();
             return movies;
         }
+
+        
     }
 
     
