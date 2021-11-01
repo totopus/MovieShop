@@ -7,10 +7,9 @@ using System.Threading.Tasks;
 
 namespace ApplicationCore.RepositoryInterfaces
 {
-    public interface IUserRepository:IAsyncRepository<User>
+    public interface IReviewRepository:IAsyncRepository<Review>
     {
-        Task<User> GetUserByEmail(string email);
-       
-
+        Task<IEnumerable<Review>> GetReviewsByUser(int userId);
     }
+
 }

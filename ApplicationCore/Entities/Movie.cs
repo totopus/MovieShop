@@ -21,7 +21,7 @@ namespace ApplicationCore.Entities
         public string OriginalLanguage { get; set; }
         public DateTime? ReleaseDate { get; set; }
         public int? RunTime { get; set; }
-        public decimal? Price { get; set; }
+        public decimal Price { get; set; }
         public DateTime? CreatedDate { get; set; }
         public DateTime? UpdatedDate { get; set; }
         public string UpdatedBy { get; set; }

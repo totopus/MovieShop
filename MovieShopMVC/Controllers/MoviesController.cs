@@ -9,16 +9,19 @@ using System.Threading.Tasks;
 using ApplicationCore.Models;
 using Infrastructure.Services;
 using ApplicationCore.ServiceInterfaces;
+using MovieShopMVC.Services;
 
 namespace MovieShopMVC.Controllers
 {
     public class MoviesController : Controller
     {
         private readonly IMovieService _movieService;
-
-        public MoviesController(IMovieService movieService)
+        private readonly ICurrentUserService _currentUserService;
+        public MoviesController(IMovieService movieService, ICurrentUserService currentUserService)
         {
             _movieService = movieService;
+            _currentUserService = currentUserService;
+
         }
 
         
@@ -27,7 +30,8 @@ namespace MovieShopMVC.Controllers
         [HttpGet]
         public async Task<IActionResult> Details(int id)
         {
-            var moviedetails = await _movieService.GetMovieDetails(id);
+            var userId = _currentUserService.UserId;
+            var moviedetails = await _movieService.GetMovieDetails(id,userId);
             return View(moviedetails);
         }
     }

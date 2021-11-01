@@ -1,0 +1,30 @@
+﻿@model IEnumerable<ApplicationCore.Models.UserReviewResponseModel>
+
+@{
+    ViewBag.Title = "title";
+    Layout = "_Layout";
+}
+
+<table class="table table-hover">
+    <thead>
+        <tr>
+            <th>Review Text</th>
+            <th>Rating</th>
+            <th>Movie Name</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.ReviewText</td>
+                <td>@r.Rating</td>
+                <td><a asp-controller="Movies" asp-action="Details" asp-route-id="@r.MovieId"> @r.Title </a></td>
+                <td><form asp-controller="Users" asp-action="DeleteReview">
+                <input type="hidden" name="MovieId" value="@r.MovieId" />
+                <button type="submit" class="btn btn-danger">Delete</button>
+</form></td>
+            </tr>
+        }
+    </tbody>
+</table>

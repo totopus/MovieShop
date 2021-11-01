@@ -11,19 +11,23 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class MovieRepository : IMovieRepository
+    public class MovieRepository :EfRepository<Movie>, IMovieRepository
     {
-        public MovieShopDbContext _dbContext;
-        public MovieRepository(MovieShopDbContext dbContext)
+        //public MovieShopDbContext _dbContext;
+        public MovieRepository(MovieShopDbContext dbContext):base(dbContext)
         {
-            _dbContext = dbContext;
+            //_dbContext = dbContext;
         }
 
+        //============================== Get Average Rating By ID ======================================//
         public async Task<double> GetAverageRatingById(int id)
         {
             var averageRating = await _dbContext.Reviews.Where(r => r.MovieId == id).DefaultIfEmpty().AverageAsync(r => r == null ? 0: r.Rating);
             return (double) averageRating;
         }   
+
+
+        //=============================== Get Movie By ID ======================================//
         public async Task<Movie> GetMovieById(int id)
         {
             var movie = await _dbContext.Movies.Include(m => m.Casts).ThenInclude(m => m.Cast)
@@ -35,6 +39,7 @@ namespace Infrastructure.Repositories
             // Single (should be only 1 0, more than 1 exception) vs SingleOrDefault (0,1, more than 1 exception)
         }
 
+        //=================================== Get Top 30 Revenue Movies ===========================================//
         public async Task<IEnumerable<Movie>> GetTop30RevenueMovies()
         {
             // we are gonna use EF with LINQ to get top 30 movies by revenue

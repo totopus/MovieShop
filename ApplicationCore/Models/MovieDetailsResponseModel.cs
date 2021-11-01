@@ -1,4 +1,5 @@
-﻿using System;
+﻿using ApplicationCore.Entities;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,7 @@ namespace ApplicationCore.Models
             Casts = new List<CastResponseModel>();
             Genres = new List<GenreModel>();
             Trailers = new List<TrailerResponseModel>();
+            
         }
 
         public int Id { get; set; }
@@ -30,11 +32,15 @@ namespace ApplicationCore.Models
         public DateTime? ReleaseDate { get; set; }
         public int? RunTime { get; set; }
         public decimal? Price { get; set; }
+        public bool IsPurchased { get; set; }
+        public bool IsFavorited { get; set; }
+        public bool IsReviewed { get; set; }
 
 
         public List<CastResponseModel> Casts { get; set; }
         public List<GenreModel> Genres { get; set; }
         public List<TrailerResponseModel> Trailers { get; set; }
+        
     }
 
 }

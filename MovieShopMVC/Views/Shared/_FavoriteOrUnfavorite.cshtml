@@ -1,0 +1,26 @@
+﻿@using System.Security.Claims
+@model ApplicationCore.Models.MovieDetailsResponseModel
+@{
+    var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+    var isFavorited = Model.IsFavorited;
+}
+
+
+@if (isFavorited == true)
+{
+    <form asp-controller="Users" asp-action="Unfavorite" method="post">
+
+        <input type="hidden" name="MovieId" value="@Model.Id" />
+        
+        <button type="submit" class="btn btn-block btn-outline-light mb-3">Unfavorite</button>
+    </form>
+}
+else
+	{
+<form asp-controller="Users" asp-action="Favorite" method="post">
+
+    <input type="hidden" name="MovieId" value="@Model.Id" />
+    
+    <button type="submit" class="btn btn-block btn-outline-light mb-3">Favorite</button>
+</form>
+	}

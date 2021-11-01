@@ -13,9 +13,15 @@ namespace Infrastructure.Services
     public class MovieService : IMovieService
     {
         private readonly IMovieRepository _movieRepository;
-        public MovieService(IMovieRepository movieRepository)
+        private readonly IPurchaseRepository _purchaseRepository;
+        private readonly IFavoriteRepository _favoriteRepository;
+        private readonly IReviewRepository _reviewRepository;
+        public MovieService(IMovieRepository movieRepository, IPurchaseRepository purchaseRepository, IFavoriteRepository favoriteRepository,IReviewRepository reviewRepository)
         {
             _movieRepository = movieRepository;
+            _purchaseRepository = purchaseRepository;
+            _favoriteRepository = favoriteRepository;
+            _reviewRepository = reviewRepository;
         }
 
         public async Task<double> GetAverageRatingById(int id)
@@ -24,13 +30,18 @@ namespace Infrastructure.Services
             return averageRating;
         }
 
-        public async Task<MovieDetailsResponseModel> GetMovieDetails(int id)
+
+        //============================= Get Movie Details =================================//
+        public async Task<MovieDetailsResponseModel> GetMovieDetails(int movieId, int? userId)
         {
-            var movie = await _movieRepository.GetMovieById(id);
-            var rating = await GetAverageRatingById(id);            
+
+            var movie = await _movieRepository.GetMovieById(movieId);
+            var rating = await GetAverageRatingById(movieId);
+            
+            
             if (movie == null)
             {
-                throw new Exception($"No Movie Found for this {id}");
+                throw new Exception($"No Movie Found for this {movieId}");
             }
             var movieDetails = new MovieDetailsResponseModel()
             {
@@ -48,9 +59,18 @@ namespace Infrastructure.Services
                 BackdropUrl = movie.BackdropUrl,
                 ImdbUrl = movie.ImdbUrl,
                 TmdbUrl = movie.TmdbUrl,
+                
               
             };
-         
+
+            if (userId != null)
+            {
+                movieDetails.IsPurchased = await _purchaseRepository.GetExistsAsync(f => f.UserId == userId && f.MovieId == movieId);
+                movieDetails.IsFavorited = await _favoriteRepository.GetExistsAsync(f => f.UserId == userId && f.MovieId == movieId);
+                movieDetails.IsReviewed = await _reviewRepository.GetExistsAsync(f => f.UserId == userId && f.MovieId == movieId);
+
+            }
+
             foreach (var genre in movie.Genres)
             {
                 movieDetails.Genres.Add(new GenreModel { 
@@ -84,12 +104,12 @@ namespace Infrastructure.Services
             
         }
 
+
+        //================================= Get Top 30 Revenue Movies ============================//
         public async Task<List<MovieCardResponseModel>> GetTop30RevenueMovies()
         {
             //method should call movie repo and get data from movie table
             var movies = await _movieRepository.GetTop30RevenueMovies();
-
-
             var movieCards = new List<MovieCardResponseModel>();
             foreach (var movie in movies)
             {
@@ -103,5 +123,6 @@ namespace Infrastructure.Services
 
             return movieCards;
         }
+
     }
 }

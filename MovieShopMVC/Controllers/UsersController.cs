@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using ApplicationCore.Models;
 using ApplicationCore.ServiceInterfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using MovieShopMVC.Services;
+using System.Diagnostics;
 
 namespace MovieShopMVC.Controllers
 {
@@ -11,69 +14,95 @@ namespace MovieShopMVC.Controllers
     public class UsersController : Controller
     {
         private readonly IUserService _userService;
-        public UsersController(IUserService userService)
+        private readonly ICurrentUserService _currentUserService;
+
+
+        public UsersController(IUserService userService, ICurrentUserService currentUserService)
         {
             _userService = userService;
+            _currentUserService = currentUserService;
+        
         }
 
         [HttpPost]
-        public async Task<IActionResult> Purchase()
+        public async Task<IActionResult> Purchase(PurchaseRequestModel requestModel)
         {
-            // purchase a movie when user clicks on Buy button on Movie Details Page
-            return View();
+            //Debug.WriteLine(requestModel.MovieId);
+            var userId = _currentUserService.UserId;  
+            var newPurchase = await _userService.PurchaseMovie(requestModel,userId);
+            return RedirectToAction("Purchases");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Favorite()
+        public async Task<IActionResult> Favorite(FavoriteRequestModel requestModel)
         {
-            // favorite a movie when user clicks on Favorite Button on Movie Details Page
-            return View();
+            var userId = _currentUserService.UserId;
+            var newFavorite = await _userService.AddFavorite(requestModel,userId);
+            return RedirectToAction("Favorites");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Review()
+        public async Task<IActionResult> Unfavorite(FavoriteRequestModel requestModel)
         {
-            // add a new review done by the user for that movie
-            return View();
+
+            var userId = _currentUserService.UserId;
+            await _userService.RemoveFavorite(requestModel, userId);
+
+            return Redirect($"~/Movies/Details/{requestModel.MovieId}");
+            
+        }
+        [HttpPost]
+        public async Task<IActionResult> DeleteReview(ReviewRequestModel requestModel)
+        {
+            var userId = _currentUserService.UserId;
+            await _userService.DeleteMovieReview(userId,requestModel.MovieId);
+            return Redirect($"~/Movies/Details/{requestModel.MovieId}");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> UpdateReview(ReviewRequestModel requestModel)
+        {
+            var userId = _currentUserService.UserId;
+            await _userService.UpdateMovieReview(requestModel,userId);
+            return RedirectToAction("Reviews");
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Review(ReviewRequestModel requestModel)
+        {
+            var userId = _currentUserService.UserId;
+            var newReview = await _userService.AddMovieReview(requestModel, userId);
+            return RedirectToAction("Reviews");
         }
 
         
         
         [HttpGet]
         //Filters in Asp.Net
-        //[Authorize]
+        [Authorize]
         public async Task<IActionResult> Purchases()
         {
-            int userId = Convert.ToInt32(HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value);
+            var userId = _currentUserService.UserId;
             var moviePurchased = await _userService.GetPurchasedMovieByUserId(userId);
-            
             return View(moviePurchased);
-            // get all the movies purchased by user => List<MovieCard> 
-            //var userIdentity = this.User.Identity;
-            //if (userIdentity != null && userIdentity.IsAuthenticated)
-            //{
-            //    return View();
-            //}
-            //RedirectToAction("Login", "Account");
-
-            //get all movies purchased by user =>list<moviecard>
-            
-            //call userservice that will give list of moviecard models that this user purchased
-            //purchase, dbContext.Purchase.where(u=>u.userid==id);
-          
         }
 
         [HttpGet]
-        public async Task<IActionResult> Favorites(int id)
+        public async Task<IActionResult> Favorites()
         {
-            // get all movies favorited by that user
-            return View();
+            var userId = _currentUserService.UserId;
+            var movieFavorited = await _userService.GetAllFavoritesForUser(userId);
+
+            return View(movieFavorited);
         }
 
-        public async Task<IActionResult> Reviews(int id)
+        [HttpGet]
+        public async Task<IActionResult> Reviews()
         {
             // get all the reviews done by this user
-            return View();
+            var userId = _currentUserService.UserId;
+            var reviews = await _userService.GetAllReviewsByUser(userId);
+            return View(reviews);
         }
     }
 }

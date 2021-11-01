@@ -1,0 +1,21 @@
+﻿@using System.Security.Claims
+@model ApplicationCore.Models.MovieDetailsResponseModel
+@{
+    var userId = Convert.ToInt32(User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.NameIdentifier)?.Value);
+    var isPurchased = Model.IsPurchased;
+}
+
+@if (isPurchased)
+{
+    <a class="btn btn-block btn-light"><i class="fas fa-video"></i> WATCH</a>
+}
+else
+{
+  
+    <form asp-controller="Users" asp-action="Purchase" method="post">
+        <input type="hidden" name="MovieId" value="@Model.Id" />
+        <input type="hidden" name="Price" value="@Model.Price" />
+        <button type="submit" class="btn btn-block btn-outline-light mb-3">BUY $@Model.Price</button>
+    </form>
+}
+

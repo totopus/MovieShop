@@ -25,9 +25,14 @@ namespace MovieShopMVC.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(UserRegisterRequestModel requestModel)
         {
+            if (!ModelState.IsValid)
+            {
+                return View();
+            }
             var newUser = await _userService.RegisterUser(requestModel);
-            return View();
+            return RedirectToAction("Login");
         }
+
         //get empty view
         [HttpGet]
         public async Task<IActionResult> Register()

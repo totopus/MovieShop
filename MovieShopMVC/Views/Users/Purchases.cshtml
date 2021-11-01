@@ -1,16 +1,50 @@
-﻿@model List<ApplicationCore.Models.MovieCardResponseModel>
+﻿@model List<ApplicationCore.Models.PurchaseDetailsResponseModel>
 
 <div class="rounded">
     <div class="container-fluid">
-        <div class="row">
+        <dv class="row">
             @foreach (var movieCard in Model)
             {
                 <div class="col-xl-2 col-sm-4 col-lg-3 col-6">
 
-                    <partial name="_MovieCard" model="movieCard" />
+                    <div class="card mb-4">
+                        <a asp-controller="Movies" asp-action="Details" asp-route-id="@movieCard.Id">
+                            <img src="@movieCard.PosterUrl" class="img-fluid" alt="@movieCard.Title" />
+                        </a>
+                        <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#topo">
+                            Purchase Details
+                        </button>
+                        <!--modal-->
+                    </div>
+                    <div class="modal fade" id="topo" tabindex="-1" role="dialog" aria-labelledby="ModalIdTitle" aria-hidden="true">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="ModalIdTitle">Purchase Details</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
 
+                                    <div class="row ">
+                                        <div class="col-md-4"><img class="img-thumbnail" src="@movieCard.PosterUrl" /></div>
+                                        <div class="col-md-8">
+                                            <ul class="list-group-flush">
+                                                <li class="list-group-item">Purchased Date <span class="badge badge-pill badge-dark">@movieCard.PurchaseDateTime</span></li>
+                                                <li class="list-group-item">Price <span class="badge badge-pill badge-dark">$@movieCard.TotalPrice</span></li>
+                                                <li class="list-group-item">Purchase Number <span class="badge badge-pill badge-dark">@movieCard.PurchaseNumber</span></li>
+                                            </ul>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!--modal end-->
                 </div>
+                
             }
-        </div>
-    </div>
+</div>
 </div>
