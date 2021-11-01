@@ -1,2 +1,2 @@
 # MovieShop
-![Alt text](/MovieShop/blob/master/1.PNG)
+![Alt text](/1.PNG)
