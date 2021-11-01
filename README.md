@@ -8,9 +8,11 @@
 ![Alt text](/2.PNG)
 #### This is the Detailed Purchase Information.
 ![Alt text](/3.PNG)
-#### This is A Sample of 
+#### This is A Sample Page of A Movie that The User Bought, Favorited, and Reviewed.
+#### The Buy, Favorite, Review Buttons Change Based On If The User Has Purchased the Movie Or Not.
 ![Alt text](/4.PNG)
-
+#### This is A Sample Page of A Movie that The User Bought, Favorited, and Reviewed.
+#### The Buy, Favorite, Review Buttons Change Based On If The User Has Purchased the Movie Or Not.
 ![Alt text](/5.PNG)
 
 ![Alt text](/6.PNG)
