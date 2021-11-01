@@ -4,11 +4,11 @@
 ![Alt text](/1.PNG)
 
 #### This is Purchased Movies Page.
-#### You can See All Purchased Movies. You can Click On Purchase Details to See Detailed Purchase Informations.
+#### You can See All Purchased Movies. You can Click On Purchase Details to See Detailed Purchase Information.
 ![Alt text](/2.PNG)
-
+#### This is the Detailed Purchase Information.
 ![Alt text](/3.PNG)
-
+#### This is A Sample of 
 ![Alt text](/4.PNG)
 
 ![Alt text](/5.PNG)
