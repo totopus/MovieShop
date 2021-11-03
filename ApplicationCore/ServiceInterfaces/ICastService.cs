@@ -9,6 +9,6 @@ namespace ApplicationCore.ServiceInterfaces
 {
     public interface ICastService
     {
-        Task<CastResponseModel> GetCastDetails(int id);
+        Task<CastDetailsResponseModel> GetCastDetails(int id);
     }
 }

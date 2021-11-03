@@ -86,10 +86,19 @@ namespace MovieShopAPI.Controllers
             //system.text.json
         }
 
+        //http://localhost:121/api/movies/genre/5?pagesize=30&pageIndex=35
         [HttpGet]
         [Route("genre/{genreId:int}")]
-        public async Task<IActionResult> GetMoviesByGenre(int genreId)
+        //30 movies per page
+        //show how many page number
+        //67 pages
+        public async Task<IActionResult> GetMoviesByGenre(int genreId,[FromQuery] int pagesize=30, [FromQuery] int pageIndex=1)
         {
+            //1 to 30 rows
+            //click on page 2=>31 to 60
+            //linq query: moviegenres.skip(pageindex-1).take(pagesize).toliskasync()
+            //sql query: offset and fetch next 30
+            //server side pagination
             var movies = await _movieService.GetMoviesByGenreId(genreId);
             return Ok(movies);
         }

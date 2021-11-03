@@ -1,4 +1,5 @@
 ﻿using ApplicationCore.Entities;
+using ApplicationCore.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,6 +10,6 @@ namespace ApplicationCore.RepositoryInterfaces
 {
     public interface ICastRepository:IAsyncRepository<Cast>
     {
-     
+        Task<Cast> GetCastDetails(int id);
     }
 }
