@@ -1,4 +1,8 @@
 # MovieShop
+#### Rating color changes based on rating
+![Alt text](/9.PNG)
+![Alt text](/10.PNG)
+![Alt text](/11.PNG)
 #### PostMan
 ![Alt text](/postman.PNG)
 #### Swagger
