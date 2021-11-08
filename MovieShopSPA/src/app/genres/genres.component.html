@@ -1,0 +1,13 @@
+<!-- Directives, they help us make out HTML even powerful with some custom attribute -->
+<!-- Structural Directives: ngFor, ngIf and ngSwitch -->
+<!-- 
+<ul class="list-unstyled p-2">
+  <li *ngFor="let genre of genres" class="m-1">
+    <a ngbDropdownItem [routerLink]="['movies/genres', genre.id]">{{
+      genre.name
+    }}</a>
+  </li>
+</ul> -->
+<a *ngFor="let genre of genres">
+  {{ genre.name }}
+</a>

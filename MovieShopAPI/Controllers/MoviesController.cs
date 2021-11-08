@@ -51,8 +51,8 @@ namespace MovieShopAPI.Controllers
         }
 
         [HttpGet]
-        [Route("toprating")]
-        //http://localhost/api/movies/toprating
+        [Route("toprated")]
+        //http://localhost/api/movies/toprated
         public async Task<IActionResult> GetTopRatingMovies()
         {
             var movies = await _movieService.GetTop25RatedMovies();

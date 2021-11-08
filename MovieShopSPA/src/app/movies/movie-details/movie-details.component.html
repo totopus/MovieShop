@@ -1,0 +1,179 @@
+
+
+<div class="bg-image" style="background: linear-gradient(rgb(0 0 10/0.70),rgba(0 0 10/0.70)),url( {{movie.backdropUrl}} ) ">
+
+    <div class="row">
+        <div class="col-md offset-2">
+            <!--Movie Poster-->
+            <div>
+
+                <img src="{{movie.posterUrl}}" class="movie-top img-fluid" />
+            </div>
+        </div>
+
+        <div class="col-md-4">
+            <!--Movie Details-->
+            <h3 class="text-white mt-3">
+                {{movie.title}}
+
+            </h3>
+
+
+            <div>
+                <small class="text-muted">{{movie.tagline}}</small>
+            </div>
+
+
+            <div class="row">
+                <div class="mt-2 col-4">
+                    <small class="text-muted font-weight-bold">{{movie.runTime}} m | {{movie.releaseDate | date:'yyyy' }}</small>
+                </div>
+
+                <div class="col-8 pt-1 ">
+                    
+                <a>
+                    <span class="badge badge-pill badge-dark mr-2" *ngFor="let genre of movie.genres">
+                        {{genre.name}}
+
+                    </span>
+                </a>
+                    
+                </div>
+            </div>
+
+
+            <div class="mt-2">
+                <span class='badge' [ngClass]="{' badge-success': movie.rating>=8.5, 'badge-warning':movie.rating<8.5 && movie.rating>6.0,'badge-danger':movie.rating<=6.0}" >
+                    {{movie.rating |number: "1.1-1"}}
+                </span>
+            </div>
+
+
+            <div class="text-light mt-3 mb-3 ">{{movie.overview}}</div>
+        </div>
+
+
+        <div class="col-md">
+            <ul class="list-group">
+
+                <li class="list-group mt-5  ml-3 mr-3">
+                    <button class="btn btn-outline-light mb-3">
+                        <i class="fa fa-heart-o mr-2"></i>
+                         FavoriteOrUnfavorite
+                    </button>
+                </li>
+                <li class="list-group mt-1 ml-3 mr-3">
+                    <button class="btn btn-outline-light mb-3">
+                        <i class="fa fa-pencil-square-o mr-2"></i>Review
+                    </button>
+                </li>
+
+                <li class="list-group mt-1 ml-3 mr-3">
+                    <button class="btn btn-outline-light mb-3">
+                        BuyOrWatch
+                    </button>
+                        
+                </li>
+
+            </ul>
+
+
+        </div>
+    </div>
+</div>
+<div class="row mt-3 ml-3">
+    <div class="col-md-4">
+        <h5>Movie Facts</h5>
+        <table class=" table-thick">
+            <tr>
+                <td>
+                    <i class="fa far fa-calendar mr-2"></i>
+                    
+                    Release Date
+
+                    <span class="badge badge-pill badge-dark">
+                        {{movie.releaseDate | date: "mediumDate"}}
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <i class="fa fas fa-hourglass-half mr-2"></i>
+                    Run Time
+
+                    <span class="badge badge-pill badge-dark">
+                        {{movie.runTime}} m
+                    </span>
+                </td>
+
+            </tr>
+            <tr>
+                <td>
+                    <i class="fa fa-money mr-2"></i>
+                    Box Office
+                    <span class="badge badge-pill badge-dark">
+                        {{movie.revenue | currency }}
+                    </span>
+                </td>
+            </tr>
+
+            <tr>
+                <td>
+                    <i class="fa fa-usd mr-2"></i>
+                    Budget
+                    <span class="badge badge-pill badge-dark">
+
+                        {{movie.budget | currency }}
+
+                    </span>
+                </td>
+            </tr>
+        </table>
+
+
+        <h5 class="pt-3">Trailers</h5>
+        <div>
+
+
+            <table class="table-thick">
+                <tbody>
+                    <tr *ngFor="let trailer of movie.trailers">
+                        <td>
+                            <i class="fa fa-brands fa-youtube mr-2"></i>
+                            <span>{{trailer.name}}</span>
+                        </td>
+                    </tr>
+
+
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+
+
+
+    <div class="col-md-6 offset-1">
+        <h5>Cast</h5>
+        <table class="table">
+            <tbody>
+                <tr *ngFor="let cast of movie.casts">
+                    <td>
+
+                        <div class="movie-profile">
+                            <a >
+                                <img src="{{cast.profilePath}}" class="rounded-circle img-fluid" alt="Alternate Text" />
+                            </a>
+                        </div>
+                    </td>
+                    <td>{{cast.name}}</td>
+                    <td>{{cast.character}}</td>
+
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</div>
+

@@ -1,1 +1,23 @@
-<h1>topos</h1>
+
+<!--display list of movies as card-->
+<!--component for moviecard, child components-->
+<!--homecomponent (parent) will use moviecardcomponent(child)-->
+<!--pass data from parent to child component-->
+<!--@input-->
+
+<!--passing data from child to parent component-->
+<!--@output-->
+
+<!--Directives-->
+<div class="rounded">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-6 col-lg-3 col-sm-4" *ngFor="let movieCard of movieCards">
+                <!--call child component-->
+                <app-movie-card [movieCard]='movieCard'>
+
+                </app-movie-card>
+            </div>
+        </div>
+    </div>
+</div>

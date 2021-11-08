@@ -37,6 +37,7 @@ namespace Infrastructure.Services
             foreach (var casts in cast.Movies)
             {
                 castDetails.Casts.Add(new CastResponseModel {
+                    Title = casts.Movie.Title,
                     Character = casts.Character
                      }); 
 

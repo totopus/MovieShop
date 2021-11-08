@@ -59,7 +59,9 @@ namespace Infrastructure.Repositories
         public async Task<IEnumerable<Movie>> GetTop25RatedMovies()
         {
             var movies = await _dbContext.Movies.Include(r => r.Reviews)
-                        .OrderByDescending(r => r.Reviews.Average(r => r.Rating)).Take(25).ToListAsync();
+                        .OrderByDescending(r => r.Reviews.Average(r => r.Rating))
+                        .Take(25)
+                        .ToListAsync();
             return movies;
         }
 
